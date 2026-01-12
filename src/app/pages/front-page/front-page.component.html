@@ -1,0 +1,115 @@
+<app-site-chrome></app-site-chrome>
+
+<!-- ✅ твой контент, просто обёрнутый в якоря -->
+<main class="page">
+  <section class="hero">
+    <app-canvas-hero [maxParticles]="150" [fps]="30"></app-canvas-hero>
+
+    <div class="hero-content">
+      <h1 class="hero-logo floating">СДК</h1>
+      <p class="hero-subtitle">
+        Технологии будущего уже сегодня. Откройте для себя инновационные продукты,
+        созданные для нового поколения цифровой эпохи.
+      </p>
+      <a class="cta-button" href="#catalog" (click)="$event.preventDefault(); goTo('#catalog')">
+        <span>Исследовать каталог</span>
+        <span class="material-symbols-outlined">arrow_forward</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="catalog" id="catalog">
+    <div class="section-header">
+      <h2 class="section-title fade-in">Популярные устройства</h2>
+      <p class="section-subtitle fade-in">Откройте для себя продукты, которые меняют представление о технологиях</p>
+    </div>
+
+    <div class="products-grid">
+      <div class="product-card fade-in" *ngFor="let p of products">
+        <div class="product-image">
+          <div class="product-badge">{{ p.badge }}</div>
+          <img [src]="p.image" [alt]="p.name" loading="lazy">
+        </div>
+
+        <div class="product-content">
+          <h3 class="product-title">{{ p.name }}</h3>
+          <p class="product-description">{{ p.description }}</p>
+
+          <div class="product-footer">
+            <a class="details-btn" [routerLink]="['/product', p.id]">
+              <span class="material-symbols-outlined">arrow_forward</span>
+              <span>Подробнее</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="about" id="about">
+    <div class="about-content">
+      <h2 class="about-title fade-in">Эпоха инноваций</h2>
+      <div class="about-text fade-in">
+        <p>СДК — это философия будущего. Мы создаём технологии, которые упрощают жизнь и расширяют границы возможного.</p>
+        <p>С 2020 года мы поставляем инновационные решения в 15 стран мира, постоянно совершенствуя технологии.</p>
+      </div>
+
+      <div class="stats">
+        <div class="stat-item fade-in">
+          <span class="stat-number">15K+</span>
+          <span class="stat-label">Довольных клиентов</span>
+        </div>
+        <div class="stat-item fade-in">
+          <span class="stat-number">50+</span>
+          <span class="stat-label">Наград качества</span>
+        </div>
+        <div class="stat-item fade-in">
+          <span class="stat-number">12</span>
+          <span class="stat-label">VIS-скинов</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer" id="contact">
+    <div class="footer-content">
+      <div class="footer-column">
+        <h3>СДК</h3>
+        <p>Технологии будущего уже сегодня. Присоединяйтесь к революции.</p>
+      </div>
+
+      <div class="footer-column">
+        <h3>Категории</h3>
+        <ul class="footer-links">
+          <li><a href="#" (click)="$event.preventDefault()">Смартфоны</a></li>
+          <li><a href="#" (click)="$event.preventDefault()">Ноутбуки</a></li>
+          <li><a href="#" (click)="$event.preventDefault()">Аудио</a></li>
+          <li><a href="#" (click)="$event.preventDefault()">Аксессуары</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h3>Поддержка</h3>
+        <ul class="footer-links">
+          <li><a href="#" (click)="$event.preventDefault()">Центр помощи</a></li>
+          <li><a href="#" (click)="$event.preventDefault()">Доставка</a></li>
+          <li><a href="#" (click)="$event.preventDefault()">Гарантия</a></li>
+          <li><a href="#" (click)="$event.preventDefault()">Контакты</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h3>Контакты</h3>
+        <ul class="footer-links">
+          <li>Москва, ул. Технологическая, 15</li>
+          <li>+7 (495) 123-45-67</li>
+          <li>info@sdk.ru</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="copyright">
+      <p>© 2026 СДК. Все права ОЧЕНЬзащищены.</p>
+    </div>
+  </footer>
+</main>

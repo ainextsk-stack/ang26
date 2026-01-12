@@ -1,0 +1,141 @@
+<header class="header" id="home" [class.is-scrolled]="isScrolled">
+  <div class="scroll-progress" [style.transform]="'scaleX(' + scrollProgress + ')'"></div>
+
+  <div class="nav-container">
+    <ng-container *ngIf="useRouterLinks; else inPageLogo">
+      <a class="logo logo-pulse" routerLink="/" fragment="home">СДК</a>
+    </ng-container>
+    <ng-template #inPageLogo>
+      <a class="logo logo-pulse" href="#home" (click)="$event.preventDefault(); goTo('#home')">СДК</a>
+    </ng-template>
+
+    <nav class="nav-desktop">
+      <ul class="nav-menu" *ngIf="useRouterLinks; else inPageNav">
+        <li><a routerLink="/" fragment="home">Главная</a></li>
+        <li><a routerLink="/" fragment="catalog">Каталог</a></li>
+        <li><a routerLink="/" fragment="about">О нас</a></li>
+        <li><a routerLink="/" fragment="contact">Контакты</a></li>
+      </ul>
+      <ng-template #inPageNav>
+        <ul class="nav-menu">
+          <li><a href="#home" (click)="$event.preventDefault(); goTo('#home')">Главная</a></li>
+          <li><a href="#catalog" (click)="$event.preventDefault(); goTo('#catalog')">Каталог</a></li>
+          <li><a href="#about" (click)="$event.preventDefault(); goTo('#about')">О нас</a></li>
+          <li><a href="#contact" (click)="$event.preventDefault(); goTo('#contact')">Контакты</a></li>
+        </ul>
+      </ng-template>
+    </nav>
+
+    <div class="nav-actions">
+      <button class="icon-btn burger" type="button" (click)="toggleMenu()" aria-label="Меню">
+        <span class="material-symbols-outlined">menu</span>
+      </button>
+
+      <button class="icon-btn" type="button" *ngIf="showVisPanel" (click)="toggleVisPanel()" aria-label="VIS">
+        <span class="material-symbols-outlined">palette</span>
+      </button>
+
+      <button class="icon-btn" type="button" (click)="toggleTheme()" aria-label="Тема">
+        <span class="material-symbols-outlined">{{ theme === 'dark' ? 'dark_mode' : 'light_mode' }}</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="drawer-overlay" [class.open]="menuOpen" (click)="closeMenu()"></div>
+
+<aside class="drawer" [class.open]="menuOpen" (click)="$event.stopPropagation()">
+  <div class="drawer-top">
+    <div class="drawer-logo">СДК</div>
+    <button class="icon-btn" type="button" (click)="closeMenu()" aria-label="Закрыть">
+      <span class="material-symbols-outlined">close</span>
+    </button>
+  </div>
+
+  <nav class="drawer-nav" *ngIf="useRouterLinks; else inPageDrawer">
+    <a class="drawer-item" routerLink="/" fragment="home" (click)="closeMenu()">
+      <span class="material-symbols-outlined">home</span><span>Главная</span>
+    </a>
+    <a class="drawer-item" routerLink="/" fragment="catalog" (click)="closeMenu()">
+      <span class="material-symbols-outlined">apps</span><span>Каталог</span>
+    </a>
+    <a class="drawer-item" routerLink="/" fragment="about" (click)="closeMenu()">
+      <span class="material-symbols-outlined">info</span><span>О нас</span>
+    </a>
+    <a class="drawer-item" routerLink="/" fragment="contact" (click)="closeMenu()">
+      <span class="material-symbols-outlined">call</span><span>Контакты</span>
+    </a>
+  </nav>
+  <ng-template #inPageDrawer>
+    <nav class="drawer-nav">
+      <a class="drawer-item" href="#home" (click)="$event.preventDefault(); goTo('#home'); closeMenu()">
+        <span class="material-symbols-outlined">home</span><span>Главная</span>
+      </a>
+      <a class="drawer-item" href="#catalog" (click)="$event.preventDefault(); goTo('#catalog'); closeMenu()">
+        <span class="material-symbols-outlined">apps</span><span>Каталог</span>
+      </a>
+      <a class="drawer-item" href="#about" (click)="$event.preventDefault(); goTo('#about'); closeMenu()">
+        <span class="material-symbols-outlined">info</span><span>О нас</span>
+      </a>
+      <a class="drawer-item" href="#contact" (click)="$event.preventDefault(); goTo('#contact'); closeMenu()">
+        <span class="material-symbols-outlined">call</span><span>Контакты</span>
+      </a>
+    </nav>
+  </ng-template>
+
+  <div class="drawer-actions">
+    <button class="drawer-btn" type="button" (click)="toggleTheme()">
+      <span class="material-symbols-outlined">{{ theme === 'dark' ? 'dark_mode' : 'light_mode' }}</span>
+      <span>Тема</span>
+    </button>
+
+    <button class="drawer-btn" type="button" *ngIf="showVisPanel" (click)="toggleVisPanel()">
+      <span class="material-symbols-outlined">palette</span>
+      <span>VIS панель</span>
+    </button>
+  </div>
+</aside>
+
+<div class="vis-panel" *ngIf="showVisPanel" [class.open]="visPanelOpen" (click)="$event.stopPropagation()">
+  <div class="vis-panel-head">
+    <div class="vis-title">VIS</div>
+    <button class="icon-btn" type="button" (click)="toggleVisPanel()" aria-label="Закрыть">
+      <span class="material-symbols-outlined">close</span>
+    </button>
+  </div>
+
+  <div class="vis-grid">
+    <button type="button" class="vis-chip" [class.active]="skin==='m3'" (click)="setSkin('m3')"><span class="dot dot-m3"></span> M3</button>
+    <button type="button" class="vis-chip" [class.active]="skin==='oled'" (click)="setSkin('oled')"><span class="dot dot-oled"></span> OLED</button>
+    <button type="button" class="vis-chip" [class.active]="skin==='cyber'" (click)="setSkin('cyber')"><span class="dot dot-cyber"></span> CYBER</button>
+    <button type="button" class="vis-chip" [class.active]="skin==='glass'" (click)="setSkin('glass')"><span class="dot dot-glass"></span> GLASS</button>
+    <button type="button" class="vis-chip" [class.active]="skin==='forest'" (click)="setSkin('forest')"><span class="dot dot-forest"></span> FOREST</button>
+    <button type="button" class="vis-chip" [class.active]="skin==='crimson'" (click)="setSkin('crimson')"><span class="dot dot-crimson"></span> CRIMSON</button>
+
+    <button type="button" class="vis-chip" [class.active]="skin==='sand'" (click)="setSkin('sand')"><span class="dot dot-sand"></span> SAND</button>
+    <button type="button" class="vis-chip" [class.active]="skin==='ice'" (click)="setSkin('ice')"><span class="dot dot-ice"></span> ICE</button>
+    <button type="button" class="vis-chip" [class.active]="skin==='mono'" (click)="setSkin('mono')"><span class="dot dot-mono"></span> MONO</button>
+    <button type="button" class="vis-chip" [class.active]="skin==='amber'" (click)="setSkin('amber')"><span class="dot dot-amber"></span> AMBER</button>
+    <button type="button" class="vis-chip" [class.active]="skin==='ocean'" (click)="setSkin('ocean')"><span class="dot dot-ocean"></span> OCEAN</button>
+    <button type="button" class="vis-chip" [class.active]="skin==='violet'" (click)="setSkin('violet')"><span class="dot dot-violet"></span> VIOLET</button>
+  </div>
+</div>
+
+<div class="floating-buttons">
+  <button class="fab back-to-top" *ngIf="showBackToTop && !menuOpen" (click)="scrollTop()" aria-label="Наверх">
+    <span class="material-symbols-outlined">arrow_upward</span>
+  </button>
+
+  <button class="fab" *ngIf="showFloatingVisCall && showVisPanel" (click)="toggleVisPanel()" aria-label="VIS">
+    <span class="material-symbols-outlined">palette</span>
+  </button>
+
+  <a class="fab fab-call"
+     *ngIf="showFloatingVisCall"
+     [href]="'tel:' + phoneE164"
+     (click)="onCall()"
+     aria-label="Позвонить">
+    <span class="material-symbols-outlined">call</span>
+    <span class="fab-tooltip">{{ phoneLabel }}</span>
+  </a>
+</div>

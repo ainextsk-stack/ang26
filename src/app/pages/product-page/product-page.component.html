@@ -1,0 +1,29 @@
+<app-site-chrome [useRouterLinks]="true" [showVisPanel]="false"></app-site-chrome>
+
+<main class="page product-page">
+  <ng-container *ngIf="product; else notFound">
+    <div class="product-hero">
+      <div class="product-media">
+        <div class="product-badge">{{ product.badge }}</div>
+        <img [src]="product.image" [alt]="product.name" loading="lazy">
+      </div>
+
+      <div class="product-info">
+        <h1 class="product-title">{{ product.name }}</h1>
+        <p class="product-description">{{ product.description }}</p>
+        <a class="product-cta" href="tel:+74951234567">
+          <span class="material-symbols-outlined">call</span>
+          <span>Позвонить</span>
+        </a>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-template #notFound>
+    <div class="product-not-found">
+      <h1>Товар не найден</h1>
+      <p>Проверьте ссылку или вернитесь в каталог.</p>
+      <a class="product-cta" routerLink="/" fragment="catalog">Вернуться в каталог</a>
+    </div>
+  </ng-template>
+</main>
