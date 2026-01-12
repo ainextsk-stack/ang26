@@ -53,7 +53,7 @@
     "production": { "buildTarget": "sdk-site:build:production" },
     "development": { "buildTarget": "sdk-site:build:development" },
      "options": {
-      "preserveSymlinks": true    // ← и сюда, на всякий случай
+      "preserveSymlinks": true  
     }
   },
   "defaultConfiguration": "development"

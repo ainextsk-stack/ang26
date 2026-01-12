@@ -58,15 +58,22 @@ export class SiteChromeComponent {
     this.toast.show(`Позвонить: ${this.phoneLabel}`);
   }
 
-  goTo(hash: string): void {
-    const id = hash.replace('#', '');
-    const el = document.getElementById(id);
-    if (!el) return;
-
-    const y = el.getBoundingClientRect().top + window.scrollY - 80;
-    window.scrollTo({ top: y, behavior: 'smooth' });
+goTo(fragment: string) {
+  if (fragment) {
+    const element = document.getElementById(fragment);
+    if (element) {
+      // Скроллим к элементу + отступ (если header фиксированный, напр. 80px)
+      const offset = 0; // или 80, если есть sticky header
+      const y = element.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    } else {
+      // Если якорь #home не найден — просто наверх страницы
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  } else {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
-
+}
   scrollTop(): void {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
@@ -90,6 +97,12 @@ export class SiteChromeComponent {
     if (!this.showVisPanel) return;
     this.visPanelOpen = !this.visPanelOpen;
   }
+
+goHome(event: Event) {
+  event.preventDefault();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
 
   @HostListener('window:scroll')
   onScroll(): void {

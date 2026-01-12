@@ -7,10 +7,10 @@ export const appConfig: ApplicationConfig = {
     provideRouter(
       routes,
       withInMemoryScrolling({
-        scrollPositionRestoration: 'top',  // ← всегда наверх при смене страницы
-        anchorScrolling: 'enabled'
+        scrollPositionRestoration: 'top',     // ← ключевой фикс: всегда наверх при навигации
+        anchorScrolling: 'enabled'            // плавный скролл к #якорям
       })
     ),
-    // другие провайдеры
+    // остальные провайдеры...
   ]
 };
