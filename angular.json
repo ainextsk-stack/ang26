@@ -13,6 +13,7 @@
         "build": {
          "builder": "@angular/build:application",
           "options": {
+             "preserveSymlinks": true,
             "outputPath": "dist/sdk-site",
             "index": "src/index.html",
             "browser": "src/main.ts",
@@ -50,7 +51,10 @@
   "builder": "@angular/build:dev-server",
   "configurations": {
     "production": { "buildTarget": "sdk-site:build:production" },
-    "development": { "buildTarget": "sdk-site:build:development" }
+    "development": { "buildTarget": "sdk-site:build:development" },
+     "options": {
+      "preserveSymlinks": true    // ← и сюда, на всякий случай
+    }
   },
   "defaultConfiguration": "development"
 }
